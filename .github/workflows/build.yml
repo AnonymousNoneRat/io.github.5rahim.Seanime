@@ -32,12 +32,6 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.version }}
           name: Seanime v${{ steps.version.outputs.version }}
-          body: |
-            Flatpak build of Seanime v${{ steps.version.outputs.version }}
-
-            **Install:**
-```bash
-            flatpak install Seanime.flatpak
-```
+          body: Flatpak build of Seanime v${{ steps.version.outputs.version }}. Download the .flatpak file below and install with "flatpak install Seanime.flatpak"
           files: Seanime.flatpak
           token: ${{ secrets.GITHUB_TOKEN }}
