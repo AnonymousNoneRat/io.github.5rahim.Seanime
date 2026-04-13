@@ -2,7 +2,7 @@ app-id: io.github.seanime.Seanime
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
-command: seanime
+command: seanime-denshi-wrapper
 
 finish-args:
   - --share=network
@@ -13,13 +13,22 @@ finish-args:
   - --device=dri
   - --filesystem=home
   - --talk-name=org.freedesktop.Notifications
+  - --env=TMPDIR=/var/tmp
 
 modules:
-  - name: seanime
+  - name: seanime-denshi
     buildsystem: simple
     build-commands:
-      - tar -xzf seanime.tar.gz
-      - install -Dm755 seanime /app/bin/seanime
+      - chmod +x seanime-denshi.AppImage
+      - ./seanime-denshi.AppImage --appimage-extract
+      - mkdir -p /app/bin /app/lib
+      - cp -r squashfs-root/* /app/lib/seanime/
+      - |
+        cat > /app/bin/seanime-denshi-wrapper << 'WRAPPER'
+        #!/bin/bash
+        exec /app/lib/seanime/AppRun "$@"
+        WRAPPER
+      - chmod +x /app/bin/seanime-denshi-wrapper
       - install -Dm644 io.github.seanime.Seanime.desktop
           /app/share/applications/io.github.seanime.Seanime.desktop
       - install -Dm644 io.github.seanime.Seanime.metainfo.xml
@@ -29,14 +38,14 @@ modules:
 
     sources:
       - type: file
-        url: https://github.com/5rahim/seanime/releases/download/v3.5.1/seanime-3.5.1_Linux_x86_64.tar.gz
+        url: https://github.com/5rahim/seanime/releases/download/v3.5.1/seanime-denshi-3.5.1_Linux_x86_64.AppImage
         sha256: 0000000000000000000000000000000000000000000000000000000000000000
-        dest-filename: seanime.tar.gz
+        dest-filename: seanime-denshi.AppImage
         x-checker-data:
           type: github-releases
           owner: 5rahim
           repo: seanime
-          filename-pattern: seanime-$version_Linux_x86_64.tar.gz
+          filename-pattern: seanime-denshi-$version_Linux_x86_64.AppImage
           is-main-source: true
 
       - type: file
