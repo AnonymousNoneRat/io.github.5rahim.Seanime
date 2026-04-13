@@ -46,6 +46,4 @@ modules:
         path: io.github.5rahim.Seanime.metainfo.xml
 
       - type: file
-        url: https://raw.githubusercontent.com/5rahim/seanime/main/public/icons/png/256x256.png
-        sha256: 0000000000000000000000000000000000000000000000000000000000000000
-        dest-filename: icon.png
+        path: icon.png
