@@ -33,13 +33,10 @@ modules:
         sha256: PLACEHOLDER_RUN_WORKFLOW_TO_FILL
         dest-filename: seanime.tar.gz
         x-checker-data:
-          type: json
-          url: https://api.github.com/repos/5rahim/seanime/releases/latest
-          version-query: .tag_name | ltrimstr("v")
-          url-query: >-
-            .assets[] |
-            select(.name | test("linux-amd64.tar.gz")) |
-            .browser_download_url
+          type: github-releases
+          owner: 5rahim
+          repo: seanime
+          filename-pattern: seanime-$version-linux-amd64.tar.gz
           is-main-source: true
 
       - type: file
