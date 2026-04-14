@@ -60,6 +60,14 @@ jobs:
           flatpak-builder --user --install --force-clean --repo=repo builddir io.github.seanime.Seanime.yml
           flatpak build-bundle repo Seanime.flatpak io.github.seanime.Seanime
 
+      - name: Delete existing release if exists
+        run: |
+          VERSION=${{ steps.version.outputs.version }}
+          gh release delete "v${VERSION}" --yes || true
+          git push origin --delete "v${VERSION}" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
