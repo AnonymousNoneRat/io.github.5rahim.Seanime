@@ -27,18 +27,16 @@ modules:
         cat > /app/bin/seanime-denshi-wrapper << 'WRAPPER'
         #!/bin/bash
         export DISPLAY="${DISPLAY:-:0}"
+        export GDK_BACKEND=wayland
+        export ELECTRON_OZONE_PLATFORM_HINT=wayland
         if [ -n "$WAYLAND_DISPLAY" ]; then
           exec /app/lib/seanime/seanime-denshi \
             --no-sandbox \
             --ozone-platform=wayland \
             --enable-features=UseOzonePlatform,WaylandWindowDecorations \
-            --app-id=io.github.seanime.Seanime \
             "$@"
         else
-          exec /app/lib/seanime/seanime-denshi \
-            --no-sandbox \
-            --app-id=io.github.seanime.Seanime \
-            "$@"
+          exec /app/lib/seanime/seanime-denshi --no-sandbox "$@"
         fi
         WRAPPER
       - chmod +x /app/bin/seanime-denshi-wrapper
@@ -49,7 +47,7 @@ modules:
       - install -Dm644 icon.png
           /app/share/icons/hicolor/256x256/apps/io.github.seanime.Seanime.png
       - install -Dm644 icon.png
-          /app/share/icons/hicolor/439x439/apps/io.github.seanime.Seanime.png
+          /app/share/icons/hicolor/512x512/apps/io.github.seanime.Seanime.png
 
     sources:
       - type: file

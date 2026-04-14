@@ -8,4 +8,4 @@ Type=Application
 Categories=AudioVideo;Video;Network;
 Keywords=anime;manga;media;streaming;
 StartupNotify=true
-StartupWMClass=seanime-denshi
+StartupWMClass=io.github.seanime.Seanime
