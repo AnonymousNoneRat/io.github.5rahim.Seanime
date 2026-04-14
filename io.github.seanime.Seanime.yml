@@ -26,7 +26,16 @@ modules:
       - |
         cat > /app/bin/seanime-denshi-wrapper << 'WRAPPER'
         #!/bin/bash
-        exec /app/lib/seanime/seanime-denshi --no-sandbox "$@"
+        export DISPLAY="${DISPLAY:-:0}"
+        if [ -n "$WAYLAND_DISPLAY" ]; then
+          exec /app/lib/seanime/seanime-denshi \
+            --no-sandbox \
+            --ozone-platform=wayland \
+            --enable-features=UseOzonePlatform,WaylandWindowDecorations \
+            "$@"
+        else
+          exec /app/lib/seanime/seanime-denshi --no-sandbox "$@"
+        fi
         WRAPPER
       - chmod +x /app/bin/seanime-denshi-wrapper
       - install -Dm644 io.github.seanime.Seanime.desktop
