@@ -1,6 +1,6 @@
 # Seanime Flatpak
 
-Unofficial Flatpak packaging of [Seanime](https://seanime.app) — a self-hosted anime and manga media server with a desktop app.
+Unofficial Flatpak packaging of [Seanime](https://seanime.app) - a self-hosted anime and manga media server with a desktop app.
 
 ## Installation
 
@@ -18,7 +18,7 @@ flatpak run io.github.seanime.Seanime
 
 ## Features
 
-- ✅ Automatic updates via built-in updater (disabled — use `flatpak update` instead)
+- ✅ Automatic updates via built-in updater (disabled - use `flatpak update` instead)
 - ✅ Wayland and X11 support
 - ✅ Sandboxed with tight permissions
 - ✅ Auto-builds when new Seanime versions release
